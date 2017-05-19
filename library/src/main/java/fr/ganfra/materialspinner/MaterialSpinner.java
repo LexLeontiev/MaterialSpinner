@@ -19,6 +19,7 @@ import android.text.TextPaint;
 import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -38,6 +39,8 @@ import java.util.List;
 
 
 public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.AnimatorUpdateListener {
+
+    public static final String TAG = MaterialSpinner.class.getSimpleName();
 
     public static final int STATE_VIEW_ONLY = 1;
     public static final int STATE_EDIT_ENABLE = 2;
@@ -138,17 +141,20 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
 
     public MaterialSpinner(Context context) {
         super(context);
+        Log.d(TAG, "Constructor(context)");
         init(context, null);
     }
 
     public MaterialSpinner(Context context, AttributeSet attrs) {
         super(context, attrs);
+        Log.d(TAG, "Constructor(context, attrs)");
         init(context, attrs);
 
     }
 
     public MaterialSpinner(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        Log.d(TAG, "Constructor(context, attrs, defStyle)");
         init(context, attrs);
     }
 
@@ -160,7 +166,7 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
     */
 
     private void init(Context context, AttributeSet attrs) {
-
+        Log.d(TAG, "init(context, attrs)");
         initAttributes(context, attrs);
         initState();
         initPaintObjects();
@@ -175,7 +181,7 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
     }
 
     private void initAttributes(Context context, AttributeSet attrs) {
-
+        Log.d(TAG, "initAttributes(context, attrs)");
         TypedArray defaultArray = context.obtainStyledAttributes(new int[]{R.attr.colorControlNormal, R.attr.colorAccent});
         int defaultBaseColor = defaultArray.getColor(0, 0);
         int defaultHighlightColor = defaultArray.getColor(1, 0);
@@ -222,9 +228,12 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
         currentNbErrorLines = minNbErrorLines;
     }
 
+    /**
+     * Every xml element must be contain id for correct saving and restoring state
+     */
     @Override
-    public Parcelable onSaveInstanceState()
-    {
+    public Parcelable onSaveInstanceState() {
+        Log.d(TAG, "onSaveInstanceState()");
         //TODO save error state
         Bundle bundle = new Bundle();
         bundle.putParcelable("superState", super.onSaveInstanceState());
@@ -233,8 +242,8 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
     }
 
     @Override
-    public void onRestoreInstanceState(Parcelable state)
-    {
+    public void onRestoreInstanceState(Parcelable state) {
+        Log.d(TAG, "onRestoreInstanceState(Parcelable state)");
         if (state instanceof Bundle) // implicit null check
         {
             //TODO restore error state
@@ -258,11 +267,12 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
     }
 
     private void initState() {
+        Log.d(TAG, "initState()");
         switchState();
     }
 
     private void initPaintObjects() {
-
+        Log.d(TAG, "initPaintObjects()");
         int labelTextSize = getResources().getDimensionPixelSize(R.dimen.label_text_size);
 
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -295,10 +305,12 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
 
     @Override
     public int getSelectedItemPosition() {
+        Log.d(TAG, "getSelectedItemPosition() ");
         return super.getSelectedItemPosition();
     }
 
     private void initPadding() {
+        Log.d(TAG, "initPadding() ");
 
         innerPaddingTop = getPaddingTop();
         innerPaddingLeft = getPaddingLeft();
@@ -313,6 +325,7 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
     }
 
     private void updateBottomPadding() {
+        Log.d(TAG, "updateBottomPadding() ");
         Paint.FontMetrics textMetrics = textPaint.getFontMetrics();
         extraPaddingBottom = underlineTopSpacing + underlineBottomSpacing;
         if (enableErrorLabel) {
@@ -322,6 +335,8 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
     }
 
     private void initDimensions() {
+        Log.d(TAG, "initDimensions() ");
+
         underlineTopSpacing = getResources().getDimensionPixelSize(R.dimen.underline_top_spacing);
         underlineBottomSpacing = getResources().getDimensionPixelSize(R.dimen.underline_bottom_spacing);
         floatingLabelTopSpacing = getResources().getDimensionPixelSize(R.dimen.floating_label_top_spacing);
@@ -333,6 +348,7 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
     }
 
     private void initOnItemSelectedListener() {
+        Log.d(TAG, "initOnItemSelectedListener() ");
         setOnItemSelectedListener(null);
     }
 
@@ -343,24 +359,30 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
     */
 
     private void initFloatingLabelAnimator() {
+        Log.d(TAG, "initFloatingLabelAnimator() ");
         if (floatingLabelAnimator == null) {
-            floatingLabelAnimator = ObjectAnimator.ofFloat(this, "floatingLabelPercent", 0f, 1f);
+            floatingLabelAnimator = ObjectAnimator.ofFloat(this, "floatingLabelPercent", 0.0f, 1f);
             floatingLabelAnimator.addUpdateListener(this);
         }
     }
 
     private void showFloatingLabel() {
+        Log.d(TAG, "showFloatingLabel() ");
+
         if (floatingLabelAnimator != null) {
             floatingLabelVisible = true;
             if (floatingLabelAnimator.isRunning()) {
                 floatingLabelAnimator.reverse();
+                Log.d(TAG, "reverse");
             } else {
                 floatingLabelAnimator.start();
+                Log.d(TAG, "start");
             }
         }
     }
 
     private void hideFloatingLabel() {
+        Log.d(TAG, "hideFloatingLabel() ");
         if (floatingLabelAnimator != null) {
             floatingLabelVisible = false;
             floatingLabelAnimator.reverse();
@@ -596,11 +618,10 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
         final OnItemSelectedListener onItemSelectedListener = new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
                 if (hint != null || floatingLabelText != null) {
-                    if (!floatingLabelVisible && position != 0) {
+                    if (!floatingLabelVisible && (position != 0 || currentState == STATE_VIEW_ONLY)) {
                         showFloatingLabel();
-                    } else if (floatingLabelVisible && position == 0) {
+                    } else if (floatingLabelVisible && position == 0 && currentState != STATE_VIEW_ONLY) {
                         hideFloatingLabel();
                     }
                 }
@@ -993,11 +1014,6 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
             mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             mSpinnerAdapter = mAdapter;
             mContext = context;
-        }
-
-        @Override
-        public void notifyDataSetChanged() {
-            super.notifyDataSetChanged();
         }
 
         @Override
