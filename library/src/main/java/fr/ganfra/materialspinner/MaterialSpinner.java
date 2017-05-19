@@ -49,7 +49,7 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
     public static final int DEFAULT_ARROW_WIDTH_DP = 10;
     public static final int DEFAULT_ARROW_AREA_WIDTH_DP = 24;
     public static final String ASTERISK = " *";
-    public static final String STATE_VIEW_EMPTY_INPUT = "-";
+    public static final String STATE_VIEW_EMPTY_INPUT = "–";
 
     //Paint objects
     private Paint paint;
