@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="disabled_color">#44000000</color>
-    <color name="error_color">#E7492E</color>
-
+    <color name="disabled_color">#999999</color>
+    <color name="error_color">#DDFF1744</color>
+    <color name="base_color">#4D4D4E</color>
 </resources>

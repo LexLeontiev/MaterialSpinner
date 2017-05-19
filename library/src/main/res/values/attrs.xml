@@ -6,6 +6,7 @@
         <attr name="ms_errorColor" format="integer"/>
         <attr name="ms_error" format="string"/>
         <attr name="ms_hint" format="string"/>
+        <attr name="ms_helperText" format="string"/>
         <attr name="ms_hintColor" format="color"/>
         <attr name="ms_floatingLabelText" format="string"/>
         <attr name="ms_floatingLabelColor" format="color"/>
@@ -15,11 +16,18 @@
         <attr name="ms_alignLabels" format="boolean"/>
         <attr name="ms_thickness" format="dimension"/>
         <attr name="ms_thickness_error" format="dimension"/>
+        <attr name="ms_lineDisabledStep" format="dimension"/>
         <attr name="ms_arrowSize" format="dimension"/>
         <attr name="ms_arrowColor" format="color"/>
         <attr name="ms_enableFloatingLabel" format="boolean"/>
         <attr name="ms_enableErrorLabel" format="boolean"/>
         <attr name="ms_isRtl" format="boolean"/>
+        <attr name="ms_isRequire" format="boolean"/>
+        <attr name="ms_state">
+            <enum name="view_only" value="1"/>
+            <enum name="edit_enable" value="2"/>
+            <enum name="edit_disable" value="3"/>
+        </attr>
 
     </declare-styleable>
 </resources>

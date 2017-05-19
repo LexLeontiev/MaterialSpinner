@@ -15,47 +15,54 @@
             android:id="@+id/spinner1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            app:ms_arrowColor="#0000FF"
-            app:ms_arrowSize="16dp"
-            app:ms_floatingLabelColor="#00FF00"
-            app:ms_floatingLabelText="floating label"
-            app:ms_hint="hint"
-            app:ms_multiline="true" />
+            app:ms_hint="Spinner with label"/>
 
         <fr.ganfra.materialspinner.MaterialSpinner
             android:id="@+id/spinner2"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            app:ms_enableErrorLabel="false"
-            app:ms_enableFloatingLabel="false"
-            app:ms_hint="hint"
-            app:ms_hintColor="#0000FF" />
+            app:ms_hint="Spinner with label and helper text"
+            app:ms_helperText="Helper text"/>
 
         <fr.ganfra.materialspinner.MaterialSpinner
             android:id="@+id/spinner3"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            app:ms_enableErrorLabel="false"
-            app:ms_enableFloatingLabel="false" />
+            app:ms_hint="Spinner with label and helper text. Require field."
+            app:ms_helperText="Helper text"
+            app:ms_isRequire="true"/>
 
         <fr.ganfra.materialspinner.MaterialSpinner
             android:id="@+id/spinner4"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            app:ms_alignLabels="false"
-            app:ms_baseColor="@color/spinner_base_color"
-            app:ms_multiline="false" />
-
-        <fr.ganfra.materialspinner.MaterialSpinner
-            android:id="@+id/spinner5"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            app:ms_hint="Spinner with label and helper text. Require field. Selected item."
+            app:ms_helperText="Helper text"
+            app:ms_isRequire="true"/>
 
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="Show/hide error"
             android:onClick="activateError" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Edit mode (enable)"
+            android:onClick="activateEditEnable" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Edit mode (disable)"
+            android:onClick="activateEditDisable" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="View mode"
+            android:onClick="activateViewMode" />
 
     </LinearLayout>
 </ScrollView>

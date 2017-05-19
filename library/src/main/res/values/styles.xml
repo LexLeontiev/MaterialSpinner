@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="spinner">
+        <item name="android:textColor">@color/base_color</item>
+    </style>
+</resources>
